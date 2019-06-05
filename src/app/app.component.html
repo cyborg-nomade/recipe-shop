@@ -1,9 +1,9 @@
-<app-header></app-header>
-<div class="container">
+<app-header (showRecipes)="onShowRecipes()" (showShoppingList)="onShowShoppingList()"></app-header>
+<div class="container" id="main">
   <div class="row">
     <div class="col">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="switchComponent === 1"></app-recipes>
+      <app-shopping-list *ngIf="switchComponent === 2"></app-shopping-list>
     </div>
   </div>
 </div>

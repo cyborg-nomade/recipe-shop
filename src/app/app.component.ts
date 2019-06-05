@@ -5,4 +5,14 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+  switchComponent: number;
+
+  onShowRecipes() {
+    this.switchComponent = 1;
+  }
+
+  onShowShoppingList() {
+    this.switchComponent = 2;
+  }
+}
