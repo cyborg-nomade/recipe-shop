@@ -7,18 +7,22 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
-  @Output() showRecipes = new EventEmitter<boolean>();
-  @Output() showShoppingList = new EventEmitter<boolean>();
+  @Output() selectComponent = new EventEmitter<number>();
 
   constructor() {}
 
   ngOnInit() {}
 
-  onRecipesClicked() {
-    this.showRecipes.emit(true);
-  }
-
-  onShoppingListClicked() {
-    this.showShoppingList.emit(true);
+  onSelect(op: number) {
+    switch (op) {
+      case 1:
+        this.selectComponent.emit(1);
+        break;
+      case 2:
+        this.selectComponent.emit(2);
+        break;
+      default:
+        break;
+    }
   }
 }
