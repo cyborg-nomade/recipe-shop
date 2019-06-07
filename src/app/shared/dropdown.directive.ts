@@ -12,22 +12,25 @@ export class DropdownDirective {
   private isOpen = false;
   constructor(private elementRef: ElementRef) {}
 
-  @HostListener('click') open() {
-    console.log('hello');
-
+  open() {
     this.isOpen = true;
     this.elementRef.nativeElement
       .querySelector('.dropdown-menu')
       .classList.add('show');
   }
 
-  @HostListener('click') close() {
+  close() {
+    this.isOpen = false;
+    this.elementRef.nativeElement
+       .querySelector('.dropdown-menu')
+       .classList.remove('show');
+  }
+
+  @HostListener('click') onClick() {
     if (this.isOpen) {
-      console.log('hi');
-      this.isOpen = false;
-      this.elementRef.nativeElement
-        .querySelector('.dropdown-menu')
-        .classList.remove('show');
+      this.close();
+    } else {
+      this.open();
     }
   }
 }
