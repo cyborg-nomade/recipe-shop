@@ -12,6 +12,12 @@ export class DropdownDirective {
   private isOpen = false;
   constructor(private elementRef: ElementRef) {}
 
+  @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.close();
+    }
+  }
+
   open() {
     this.isOpen = true;
     this.elementRef.nativeElement
@@ -22,8 +28,8 @@ export class DropdownDirective {
   close() {
     this.isOpen = false;
     this.elementRef.nativeElement
-       .querySelector('.dropdown-menu')
-       .classList.remove('show');
+      .querySelector('.dropdown-menu')
+      .classList.remove('show');
   }
 
   @HostListener('click') onClick() {
