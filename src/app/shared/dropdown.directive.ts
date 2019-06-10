@@ -20,23 +20,25 @@ export class DropdownDirective {
 
   open() {
     this.isOpen = true;
-    this.elementRef.nativeElement
-      .querySelector('.dropdown-menu')
-      .classList.add('show');
+    this.elementRef.nativeElement.nextSibling.classList.add('show');
   }
 
   close() {
     this.isOpen = false;
-    this.elementRef.nativeElement
-      .querySelector('.dropdown-menu')
-      .classList.remove('show');
+    this.elementRef.nativeElement.nextSibling.classList.remove('show');
   }
 
   @HostListener('click') onClick() {
-    if (this.isOpen) {
-      this.close();
-    } else {
-      this.open();
+    if (
+      this.elementRef.nativeElement.nextSibling.classList.contains(
+        'dropdown-menu'
+      )
+    ) {
+      if (this.isOpen) {
+        this.close();
+      } else {
+        this.open();
+      }
     }
   }
 }
