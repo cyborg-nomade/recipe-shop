@@ -7,15 +7,22 @@
 - Root (C)
   - Header (C)
     - Shopping List (F)
+      - Shopping List (S)
       - Shopping List (C)
       - Shopping List Edit (C)
       - Ingredient (M)
     - Recipe Book (F)
+      - Recipes (S)
       - Recipes Component (C)
         - Recipe List (C)
         - Recipe Detail (C)
       - Recipe Item (C)
       - Recipe (M)
+
+C = Component
+F = Feature
+M = Model
+S = Service
 
 ## Standard Angular Readme
 
