@@ -13,10 +13,10 @@
       - Ingredient (M)
     - Recipe Book (F)
       - Recipes (S)
-      - Recipes Component (C)
-        - Recipe List (C)
-        - Recipe Detail (C)
+      - Recipe List (C)
       - Recipe Item (C)
+      - Recipe Detail (C)
+      - Recipe Edit (C)
       - Recipe (M)
 
 C = Component
