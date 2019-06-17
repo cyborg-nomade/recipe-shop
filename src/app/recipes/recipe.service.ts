@@ -12,13 +12,13 @@ export class RecipeService {
     new Recipe(
       'Tasty Schnitzel',
       'A super-tasty Schnitzel - just awesome!',
-      'http://upload.wikimedia.org/wikipedia/commons/2/22/Breitenlesau_Krug_Br%C3%A4u_Schnitzel.JPG',
+      '../../assets/imgs/Breitenlesau_Krug_Bräu_Schnitzel.jpg',
       [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
     ),
     new Recipe(
       'Big Fat Burger',
       'What else do you need to say?',
-      'http://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      '../../assets/imgs/Burger_King_Angus_Bacon_&_Cheese_Steak_Burger.jpg',
       [
         new Ingredient('Buns', 2),
         new Ingredient('Angus Burger', 2),
@@ -32,5 +32,9 @@ export class RecipeService {
 
   getRecipes() {
     return this.recipes.slice();
+  }
+
+  getRecipeById(index: number) {
+    return this.recipes[index];
   }
 }
