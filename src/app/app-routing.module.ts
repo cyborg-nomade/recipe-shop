@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'recipes',
     component: RecipesComponent,
     children: [
-      { path: '', component: DefaultPageComponent, pathMatch: 'full' },
+      { path: '', component: DefaultPageComponent },
       { path: ':id', component: RecipeDetailComponent }
     ]
   },
