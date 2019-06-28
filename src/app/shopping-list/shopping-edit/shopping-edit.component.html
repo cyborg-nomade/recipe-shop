@@ -17,7 +17,7 @@
           <button type="submit" class="btn btn-success mr-1"
             [disabled]="!f.valid">{{editMode ? 'Update' : 'Add'}}</button>
           <button type="button" class="btn btn-danger mr-1">Delete</button>
-          <button type="button" class="btn btn-primary mr-1">Clear</button>
+          <button type="button" class="btn btn-primary mr-1" (click)="onClearForm()">Clear</button>
         </div>
       </div>
     </form>
