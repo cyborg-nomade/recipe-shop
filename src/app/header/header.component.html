@@ -9,10 +9,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.collapse]="collapsed"
     (window:resize)="collapsed = true">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" [routerLink]="['/auth']" routerLinkActive="active">Authenticate</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" [routerLink]="['/recipes']" routerLinkActive="active">Recipes</a>
       </li>
       <li class="nav-item">
@@ -20,7 +20,7 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="isAuthenticated">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" appDropdown>
           Manage
@@ -29,6 +29,9 @@
           <a class="dropdown-item" (click)="onSaveData()">Save Data</a>
           <a class="dropdown-item" (click)="onFetchData()">Fetch Data</a>
         </div>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link">Logout</a>
       </li>
     </ul>
   </div>
