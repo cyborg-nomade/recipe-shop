@@ -7,6 +7,8 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { DefaultPageComponent } from './default-page/default-page.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { DefaultPageComponent } from './default-page/default-page.component';
     RecipeEditComponent,
     DefaultPageComponent
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [],
   providers: []
 })
