@@ -9,6 +9,7 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { DefaultPageComponent } from './default-page/default-page.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RecipesRoutingModule } from './recipes-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecipeEditComponent,
     DefaultPageComponent
   ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    RecipesRoutingModule
+  ],
   exports: [],
   providers: []
 })
