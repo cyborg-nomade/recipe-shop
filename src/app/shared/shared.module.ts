@@ -21,7 +21,6 @@ import { DropdownDirective } from './dropdown.directive';
     DropdownDirective,
     CommonModule
   ],
-  providers: [],
   entryComponents: [AlertComponent]
 })
 export class SharedModule {}

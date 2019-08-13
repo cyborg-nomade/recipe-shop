@@ -12,8 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ShoppingListComponent, ShoppingEditComponent],
-  imports: [RouterModule.forChild(routes), FormsModule, SharedModule],
-  exports: [],
-  providers: []
+  imports: [RouterModule.forChild(routes), FormsModule, SharedModule]
 })
 export class ShoppingListModule {}
