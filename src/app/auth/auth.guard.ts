@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
-  CanActivateChild,
-  CanLoad,
-  Route,
-  UrlSegment,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
@@ -12,7 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { map, tap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +17,10 @@ export class AuthGuard implements CanActivate /*, CanActivateChild, CanLoad*/ {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    // tslint:disable-next-line: variable-name
+    _next: ActivatedRouteSnapshot,
+    // tslint:disable-next-line: variable-name
+    _state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>

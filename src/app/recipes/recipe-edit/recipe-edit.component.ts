@@ -1,4 +1,3 @@
-import { Ingredient } from 'src/app/shared/ingredients.model';
 import { Recipe } from './../recipe.model';
 import { RecipeService } from './../recipe.service';
 import { Component, OnInit } from '@angular/core';
