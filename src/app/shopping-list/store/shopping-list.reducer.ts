@@ -18,6 +18,6 @@ export function shoppingListReducer(
         ingredients: [...state.ingredients, action.payload]
       };
     default:
-      break;
+      return state;
   }
 }
