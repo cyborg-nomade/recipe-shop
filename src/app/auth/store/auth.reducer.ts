@@ -11,17 +11,26 @@ const initialState: State = {
 
 export function authReducer(
   state = initialState,
-  action: AuthActions.Actions
+  action: AuthActions.AuthActions
 ): State {
   switch (action.type) {
-    // case AuthActions.ActionTypes.TYPE: {
-    //   return {
-    //     // return new AuthActions state
-    //   };
-    // }
-
-    default: {
+    case AuthActions.LOGIN:
+      const user = new User(
+        action.payload.email,
+        action.payload.userId,
+        action.payload.token,
+        action.payload.expirationDate
+      );
+      return {
+        ...state,
+        user
+      };
+    case AuthActions.LOGOUT:
+      return {
+        ...state,
+        user: null
+      };
+    default:
       return state;
-    }
   }
 }
