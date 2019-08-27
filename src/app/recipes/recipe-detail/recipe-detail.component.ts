@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Recipe } from '../recipe.model';
-import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
+// import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { RecipeService } from '../recipe.service';
 import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
 import * as fromShoppingList from './../../shopping-list/store/shopping-list.reducer';
@@ -18,7 +18,7 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
 
   constructor(
-    private shoppingListService: ShoppingListService,
+    /* private shoppingListService: ShoppingListService,*/
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
