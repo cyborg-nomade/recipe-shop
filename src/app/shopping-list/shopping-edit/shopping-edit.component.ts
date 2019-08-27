@@ -26,17 +26,31 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.shoppingListService.startedEditing.subscribe(
-      (index: number) => {
-        this.editedIngredientIndex = index;
-        this.editMode = true;
-        this.editedIngredient = this.shoppingListService.getIngredient(index);
-        this.shoppingListForm.setValue({
-          name: this.editedIngredient.name,
-          amount: this.editedIngredient.amount
-        });
-      }
-    );
+    this.subscription = this.store
+      .select('shoppingList')
+      .subscribe(stateData => {
+        if (stateData.editedIngredientIndex > -1) {
+          this.editMode = true;
+          this.editedIngredient = stateData.editedIngredient;
+          this.shoppingListForm.setValue({
+            name: this.editedIngredient.name,
+            amount: this.editedIngredient.amount
+          });
+        } else {
+          this.editMode = false;
+        }
+      });
+    // this.subscription = this.shoppingListService.startedEditing.subscribe(
+    //   (index: number) => {
+    //     this.editedIngredientIndex = index;
+    //     this.editMode = true;
+    //     this.editedIngredient = this.shoppingListService.getIngredient(index);
+    //     this.shoppingListForm.setValue({
+    //       name: this.editedIngredient.name,
+    //       amount: this.editedIngredient.amount
+    //     });
+    //   }
+    // );
   }
 
   onSubmitngredient(form: NgForm) {
@@ -66,6 +80,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   onClearForm() {
     this.shoppingListForm.reset();
     this.editMode = false;
+    this.store.dispatch(new ShoppingListActions.StopEdit());
   }
 
   onDeleteIngredient() {
@@ -78,5 +93,6 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.store.dispatch(new ShoppingListActions.StopEdit());
   }
 }
