@@ -20,7 +20,8 @@ export interface AuthResponseData {
 
 @Injectable()
 export class AuthEffects {
-  @Effect() authLogin$: Observable<Action> = this.actions$.pipe(
+  @Effect()
+  authLogin$ /*: Observable<Action> TODO: check how to get this type to work */ = this.actions$.pipe(
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
