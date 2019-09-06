@@ -19,10 +19,74 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+const handleAuthentication = (
+  expiresIn: number,
+  email: string,
+  userId: string,
+  token: string
+) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  return new AuthActions.AuthenticateSuccess({
+    email,
+    userId,
+    token,
+    expirationDate
+  });
+};
+
+const handleError = (errorRes: any) => {
+  let errorMessage = 'An unknown error has occurred.';
+  if (!errorRes.error || !errorRes.error.error) {
+    return of(new AuthActions.AuthenticateFail(errorMessage));
+  }
+  switch (errorRes.error.error.message) {
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email already exists';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'Invalid password or e-mail';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'Invalid password or e-mail';
+      break;
+    case 'USER_DISABLED':
+      errorMessage = 'This user has been suspended by the administrator';
+      break;
+  }
+  return of(new AuthActions.AuthenticateFail(errorMessage));
+};
+
 @Injectable()
 export class AuthEffects {
   @Effect()
-  authSignUp$ = this.action$.pipe(ofType(AuthActions.SIGNUP_START));
+  authSignUp$ = this.action$.pipe(
+    ofType(AuthActions.SIGNUP_START),
+    switchMap((signUpAction: AuthActions.SignUpStart) => {
+      return this.http
+        .post<AuthResponseData>(
+          'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+            environment.firebaseAPIKey,
+          {
+            email: signUpAction.payload.email,
+            password: signUpAction.payload.password,
+            returnSecureToken: true
+          }
+        )
+        .pipe(
+          map(resData => {
+            return handleAuthentication(
+              +resData.expiresIn,
+              resData.email,
+              resData.localId,
+              resData.idToken
+            );
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
 
   @Effect()
   authLogin$ /*: Observable<Action> TODO: check how to get this type to work */ = this.action$.pipe(
@@ -40,37 +104,15 @@ export class AuthEffects {
         )
         .pipe(
           map(resData => {
-            const expirationDate = new Date(
-              new Date().getTime() + +resData.expiresIn * 1000
+            return handleAuthentication(
+              +resData.expiresIn,
+              resData.email,
+              resData.localId,
+              resData.idToken
             );
-            return new AuthActions.AuthenticateSuccess({
-              email: resData.email,
-              userId: resData.localId,
-              token: resData.idToken,
-              expirationDate
-            });
           }),
           catchError(errorRes => {
-            let errorMessage = 'An unknown error has occurred.';
-            if (!errorRes.error || !errorRes.error.error) {
-              return of(new AuthActions.AuthenticateFail(errorMessage));
-            }
-            switch (errorRes.error.error.message) {
-              case 'EMAIL_EXISTS':
-                errorMessage = 'This email already exists';
-                break;
-              case 'EMAIL_NOT_FOUND':
-                errorMessage = 'Invalid password or e-mail';
-                break;
-              case 'INVALID_PASSWORD':
-                errorMessage = 'Invalid password or e-mail';
-                break;
-              case 'USER_DISABLED':
-                errorMessage =
-                  'This user has been suspended by the administrator';
-                break;
-            }
-            return of(new AuthActions.AuthenticateFail(errorMessage));
+            return handleError(errorRes);
           })
         );
     })
