@@ -1,11 +1,11 @@
-import { /* HttpClient , */ HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+// import { /* HttpClient , */ HttpErrorResponse } from '@angular/common/http';
 // import { Router } from '@angular/router';
 // import { catchError, tap } from 'rxjs/operators';
-import { throwError /* BehaviorSubject */ } from 'rxjs';
-import { Store } from '@ngrx/store';
+// import { throwError /* BehaviorSubject */ } from 'rxjs';
 
-import { User } from './user.model';
+// import { User } from './user.model';
 // import { environment } from '../../environments/environment';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
