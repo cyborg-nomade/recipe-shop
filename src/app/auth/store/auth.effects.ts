@@ -1,10 +1,9 @@
 import { AuthService } from './../auth.service';
-import { /* Observable, */ of } from 'rxjs';
+import { of } from 'rxjs';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-/* import { Action } from '@ngrx/store'; */
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import * as AuthActions from './auth.actions';
@@ -97,7 +96,7 @@ export class AuthEffects {
   );
 
   @Effect()
-  authLogin$ /*: Observable<Action> TODO: check how to get this type to work */ = this.action$.pipe(
+  authLogin$ = this.action$.pipe(
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
@@ -161,7 +160,6 @@ export class AuthEffects {
       );
 
       if (loadedUser.getToken) {
-        // this.user.next(loadedUser);
         const expirationDuration =
           new Date(userData.tokenExpirationDate).getTime() -
           new Date().getTime();
@@ -173,10 +171,6 @@ export class AuthEffects {
           expirationDate: new Date(userData.tokenExpirationDate),
           redirect: false
         });
-
-        // const expirationDuration =
-        //   new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
-        // this.autoLogout(expirationDuration);
       }
       return { type: 'DUMMY' };
     })

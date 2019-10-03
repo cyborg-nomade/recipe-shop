@@ -1,5 +1,4 @@
 import { Recipe } from './../recipe.model';
-// import { RecipeService } from './../recipe.service';
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
 
@@ -24,7 +23,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    /*private recipeService: RecipeService,*/
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
@@ -51,8 +49,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const ingredientsForm = new FormArray([]);
 
     if (this.editMode) {
-      // editedRecipe = this.recipeService.getRecipeById(this.id);
-
       this.storeSub = this.store
         .select('recipes')
         .pipe(
@@ -106,14 +102,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeEditForm.value.name,
-    //   this.recipeEditForm.value.description,
-    //   this.recipeEditForm.value.imagePath,
-    //   this.recipeEditForm.value.ingredients
-    // );
     if (this.editMode) {
-      // this.recipeService.updateRecipe(this.id, this.recipeEditForm.value);
       this.store.dispatch(
         new RecipesActions.UpdateRecipe({
           index: this.id,
@@ -121,7 +110,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         })
       );
     } else {
-      // this.recipeService.addRecipe(this.recipeEditForm.value);
       this.store.dispatch(
         new RecipesActions.AddRecipe(this.recipeEditForm.value)
       );

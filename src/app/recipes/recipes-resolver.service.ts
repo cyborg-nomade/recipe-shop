@@ -9,8 +9,6 @@ import { Actions, ofType } from '@ngrx/effects';
 import { take, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-// import { DataStorageService } from '../shared/data-storage.service';
-// import { RecipeService } from './recipe.service';
 import { Recipe } from './recipe.model';
 import * as fromApp from '../store/app.reducer';
 import * as RecipesActions from '../recipes/store/recipe.actions';
@@ -20,20 +18,12 @@ import * as RecipesActions from '../recipes/store/recipe.actions';
 })
 export class RecipesResolverService implements Resolve<Recipe[]> {
   constructor(
-    /*private dataStorageService: DataStorageService,
-    private recipeService: RecipeService,*/
     private store: Store<fromApp.AppState>,
     private action$: Actions
   ) {}
 
   // tslint:disable-next-line: variable-name
   resolve(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
-    // const recipes = this.recipeService.getRecipes();
-    // if (recipes.length === 0) {
-    //   return this.dataStorageService.fetchRecipes();
-    // } else {
-    //   return recipes;
-    // }
     return this.store.select('recipes').pipe(
       take(1),
       map(recipesState => {

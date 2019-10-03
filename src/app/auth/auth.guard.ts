@@ -9,19 +9,14 @@ import {
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
 import * as fromApp from '../store/app.reducer';
 import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate /*, CanActivateChild, CanLoad*/ {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private store: Store<fromApp.AppState>
-  ) {}
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router, private store: Store<fromApp.AppState>) {}
 
   canActivate(
     // tslint:disable-next-line: variable-name
@@ -45,28 +40,6 @@ export class AuthGuard implements CanActivate /*, CanActivateChild, CanLoad*/ {
         }
         return this.router.createUrlTree(['/auth']);
       })
-      // tap(isAuth => {
-      //   if (!isAuth) {
-      //     this.router.navigate(['/auth']);
-      //   }
-      // })
     );
   }
-
-  // canActivateChild(
-  //   next: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ):
-  //   | Observable<boolean | UrlTree>
-  //   | Promise<boolean | UrlTree>
-  //   | boolean
-  //   | UrlTree {
-  //   return true;
-  // }
-  // canLoad(
-  //   route: Route,
-  //   segments: UrlSegment[]
-  // ): Observable<boolean> | Promise<boolean> | boolean {
-  //   return true;
-  // }
 }
