@@ -46,7 +46,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ShoppingListActions.StartEdit(index));
   }
 
-  onAnimate() {}
+  onAnimate() {
+    this.state === 'normal'
+      ? (this.state = 'highlighted')
+      : (this.state = 'normal');
+  }
 
   onShrink() {}
 }
