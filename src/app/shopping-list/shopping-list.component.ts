@@ -1,5 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -26,7 +32,9 @@ import * as fromApp from '../store/app.reducer';
           backgroundColor: 'blue',
           transform: 'translateX(100px)'
         })
-      )
+      ),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(800))
     ])
   ]
 })
