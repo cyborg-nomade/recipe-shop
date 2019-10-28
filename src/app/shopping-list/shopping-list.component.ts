@@ -5,7 +5,8 @@ import {
   style,
   transition,
   animate,
-  keyframes
+  keyframes,
+  group
 } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -132,19 +133,21 @@ import * as fromApp from '../store/app.reducer';
         )
       ]),
       transition('* => void', [
-        animate(
-          300,
-          style({
-            transform: 'translateX(100px)',
-            opacity: 0
-          })
-        ),
-        animate(
-          300,
-          style({
-            color: 'red'
-          })
-        )
+        group([
+          animate(
+            300,
+            style({
+              transform: 'translateX(100px)',
+              opacity: 0
+            })
+          ),
+          animate(
+            800,
+            style({
+              color: 'red'
+            })
+          )
+        ])
       ])
     ])
   ]
