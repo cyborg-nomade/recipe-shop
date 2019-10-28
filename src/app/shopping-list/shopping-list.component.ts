@@ -191,4 +191,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   onDelete(item) {
     this.list.splice(this.list.indexOf(item), 1);
   }
+
+  animationStarted(event) {
+    console.log(event);
+  }
+
+  animationEnded(event) {
+    console.log(event);
+  }
 }
