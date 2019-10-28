@@ -72,12 +72,36 @@ import * as fromApp from '../store/app.reducer';
         ),
         animate(500)
       ])
+    ]),
+    trigger('list1', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translateX(0)'
+        })
+      ),
+      transition('void => *', [
+        style({ opacity: 0, transform: 'translateX(-100px)' }),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(
+          300,
+          style({
+            transform: 'translateX(100px)',
+            opacity: 0
+          })
+        )
+      ])
     ])
   ]
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   state = 'normal';
   wildState = 'normal';
+  list = ['Milk', 'Sugar', 'Bread'];
+
   ingredients: Observable<{ ingredients: Ingredient[] }>;
 
   constructor(private store: Store<fromApp.AppState>) {}
@@ -103,5 +127,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   onShrink() {
     this.wildState = 'shrunken';
+  }
+
+  onAdd(item) {
+    this.list.push(item);
+  }
+
+  onDelete(item) {
+    this.list.splice(this.list.indexOf(item), 1);
   }
 }
